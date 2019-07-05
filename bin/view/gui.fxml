@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:controller="controllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="700" >
+
+
+	<bottom>
+		<VBox spacing="5">
+			<BorderPane.margin>
+				<Insets left="10" right="10" bottom="10" top="10"/>
+			</BorderPane.margin>
+			<HBox spacing="5">
+				<Button text="Add Client" onAction="#openClientWindow"/>
+				<Button text="Add Room" onAction="#getRooms"/>
+				<Button text="Add Room Type" onAction="#getRoomTypes"/>
+				<Button text="Make Reservation" onAction="#getReservations"/>
+			</HBox>
+			<HBox spacing="5">
+				<Button text="Clients" onAction="#getClients"/>
+				<Button text="Rooms" onAction="#getRooms"/>
+				<Button text="Room Types" onAction="#getRoomTypes"/>
+				<Button text="Reservations" onAction="#getReservations"/>
+			</HBox>
+			<TextArea fx:id="display" editable="false" prefHeight="300" prefWidth="700" />
+		</VBox>
+	</bottom>
+	
+	
+</BorderPane>
+

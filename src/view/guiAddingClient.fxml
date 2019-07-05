@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+
+<VBox fx:controller="controllers.ControllerAddingClient" xmlns:fx="http://javafx.com/fxml" prefHeight="250" prefWidth="400" spacing="5" >
+	<padding>
+		<Insets left="10" right="10" top="10" bottom="10"/>
+	</padding>
+		<HBox spacing="5"><Label prefHeight="25" text="Name: "/> <TextField fx:id="name" prefWidth="75"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="Surname: "/> <TextField fx:id="surname" prefWidth="100" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="Phone: "/> <TextField fx:id="phone" prefWidth="75" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="Address: "/> <TextField fx:id="address" prefWidth="125" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="City: "/> <TextField fx:id="city" prefWidth="75" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="PostalCode: "/> <TextField fx:id="postalCode" prefWidth="75" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Button fx:id="addButton" onAction="#addClient" text="Create"/></HBox>
+</VBox>
+

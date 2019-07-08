@@ -44,6 +44,9 @@ public class Client {
 	public String getPostalCode () { return postalCode; }
 	
 	public static Client createClient (String name, String surname, String phoneNumber, String address, String city, String postalCode) {
+		
+		if (name.isEmpty() || surname.isEmpty() || phoneNumber.isEmpty() || address.isEmpty() || city.isEmpty() || postalCode.isEmpty())
+			return null;
 		Client c = new Client(name, surname, phoneNumber, address, city, postalCode);
 		return c;
 	}

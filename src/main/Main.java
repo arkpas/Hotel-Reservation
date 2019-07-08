@@ -16,8 +16,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/gui.fxml"));
-			
+
 			Scene scene = new Scene(root, 700, 500);
+			scene.getStylesheets().add("/view/stylesheet.css");
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Hotel Reservation System");
 			primaryStage.setOnCloseRequest(event -> Platform.exit());

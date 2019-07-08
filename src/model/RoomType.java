@@ -44,6 +44,9 @@ public class RoomType {
 	public double getPricePerDay () { return pricePerDay; }
 	
 	public static RoomType createRoomType (String name, int size, int beds, boolean hasBalcony, boolean hasBathroom, double pricePerDay) {
+		
+		if (name.isEmpty())
+			return null;
 		RoomType rt = new RoomType(name, size, beds, hasBalcony, hasBathroom, pricePerDay);
 		return rt;
 		

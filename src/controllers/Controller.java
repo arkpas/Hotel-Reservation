@@ -17,8 +17,7 @@ public class Controller {
 	private Hotel hotel = new Hotel();
 	private Stage window = new Stage();
 	
-	@FXML
-	private TextArea display = new TextArea();
+	@FXML private TextArea display = new TextArea();
 	
 	@FXML
 	private void getClients() {
@@ -88,16 +87,64 @@ public class Controller {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingClient.fxml"));
 			Scene scene = new Scene(root, 400, 250);
-			window.setScene(scene);
-			window.setTitle("Add Client");
-			window.setOnCloseRequest(event -> window.close());
-			window.show();
+			openWindow(scene);
 		}
 		catch (IOException e) {
 			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@FXML
+	private void openRoomWindow () {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingRoom.fxml"));
+			Scene scene = new Scene(root, 200, 100);
+			openWindow(scene);
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+	private void openRoomTypeWindow () {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingRoomType.fxml"));
+			Scene scene = new Scene(root, 200, 250);
+			openWindow(scene);
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+	private void openReservationWindow () {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingReservation.fxml"));
+			Scene scene = new Scene(root, 200, 200);
+			openWindow(scene);
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void openWindow (Scene scene) {
+		
+		scene.getStylesheets().add("/view/stylesheet.css");
+		window.setScene(scene);
+		window.setTitle("Add Room Type");
+		window.setOnCloseRequest(event -> window.close());
+		window.show();
 	}
 	
 

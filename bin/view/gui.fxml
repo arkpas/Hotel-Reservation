@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane fx:controller="controllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="700" >
+<BorderPane fx:controller="controllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="700" id="mainBackground" >
 
 
 	<bottom>
@@ -17,9 +17,9 @@
 			</BorderPane.margin>
 			<HBox spacing="5">
 				<Button text="Add Client" onAction="#openClientWindow"/>
-				<Button text="Add Room" onAction="#getRooms"/>
-				<Button text="Add Room Type" onAction="#getRoomTypes"/>
-				<Button text="Make Reservation" onAction="#getReservations"/>
+				<Button text="Add Room" onAction="#openRoomWindow"/>
+				<Button text="Add Room Type" onAction="#openRoomTypeWindow"/>
+				<Button text="Make Reservation" onAction="#openReservationWindow"/>
 			</HBox>
 			<HBox spacing="5">
 				<Button text="Clients" onAction="#getClients"/>

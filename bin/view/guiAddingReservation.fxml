@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+
+<VBox fx:controller="controllers.ControllerAddingReservation" xmlns:fx="http://javafx.com/fxml" spacing="5" id="mainBackground" >
+	<padding>
+		<Insets left="10" right="10" top="10" bottom="10"/>
+	</padding>
+		<HBox spacing="5"><Label prefHeight="25" text="Client ID: "/> <TextField fx:id="clientIDField" prefWidth="75"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="Room number: "/> <TextField fx:id="roomIDField" prefWidth="100" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="Date from: "/> <TextField fx:id="dateFromField" prefWidth="75" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Label prefHeight="25" text="Date to: "/> <TextField fx:id="dateToField" prefWidth="75" prefHeight="25"/></HBox>
+		<HBox spacing="5"><Button onAction="#addReservation" text="Create"/></HBox>
+</VBox>

@@ -58,9 +58,13 @@ public class Hotel {
 		return false;
 	}
 	
-	public boolean addClient (Client client) {
+	public String addClient (Client client) {
+		
+		/* This method returns null only when client is added successfully 
+		 * Otherwise it will return reason why adding client failed */
+		
 		if (client == null)
-			return false;
+			return "No data provided";
 		
 		try {
 		PreparedStatement statement	= connection.prepareStatement("SELECT * FROM Clients WHERE Name=? AND Surname=? AND PhoneNumber=?;");
@@ -68,8 +72,7 @@ public class Hotel {
 		statement.setString(2, client.getSurname());
 		statement.setString(3, client.getPhoneNumber());
 		if (statement.executeQuery().isBeforeFirst()) {
-			System.out.println("Client already exists in database");
-			return false;
+			return "Client already exists in database";
 		}
 			
 		statement = connection.prepareStatement("INSERT INTO Clients VALUES (NULL, ?, ?, ?, ?, ?, ?);");
@@ -79,57 +82,60 @@ public class Hotel {
 		statement.setString(4, client.getAddress());
 		statement.setString(5, client.getCity());
 		statement.setString(6, client.getPostalCode());
-		return statement.execute();
+		return null;
 		}
 		
-		catch (SQLException e) { System.out.println(e.getMessage()); return false; }
+		catch (SQLException e) { System.out.println(e.getMessage()); return "Database access error"; }
 		
 	}
 	
-	public boolean addRoom (Room room) {
+	public String addRoom (Room room) {
+		
+		/* This method returns null only when room is added successfully 
+		 * Otherwise it will return reason why adding room failed */
+		
 		if (room == null)
-			return false;
+			return "No data delivered";
 		
 		try {
 			
 		PreparedStatement statement	= connection.prepareStatement("SELECT * FROM Rooms WHERE RoomID=?;");
 		statement.setInt(1, room.getRoomID());
 		if (statement.executeQuery().isBeforeFirst()) {
-			System.out.println("Room already exists");
-			return false;
+			return "Room already exists";
 		}
 		
 		statement = connection.prepareStatement("SELECT * FROM RoomTypes WHERE RoomTypeID=?;");
 		statement.setInt(1, room.getRoomTypeID());
 		if (!statement.executeQuery().isBeforeFirst()) {
-			System.out.println("No room type with ID: " + room.getRoomTypeID());
-			return false;
+			return "No room type with ID: " + room.getRoomTypeID();
 		}
 			
 		statement = connection.prepareStatement("INSERT INTO Rooms VALUES (?, ?);");
 		statement.setInt(1, room.getRoomID());
 		statement.setInt(2, room.getRoomTypeID());
-		return statement.execute();
+		statement.execute();
+		return null;
 		
 
 		}
 		
-		catch (SQLException e) { System.err.println(e.getMessage()); return false; }
+		catch (SQLException e) { System.err.println(e.getMessage()); return "Database access error"; }
 		
 	}
 	
-	public boolean addRoomType (RoomType roomType) {
+	public String addRoomType (RoomType roomType) {
+		
 		if (roomType == null)
-			return false;
+			return "No data provided";
 		
 		try {
 		PreparedStatement statement	= connection.prepareStatement("SELECT * FROM RoomTypes WHERE Name=?;");
 		statement.setString(1, roomType.getName());
 		if (statement.executeQuery().isBeforeFirst()) {
-			System.out.println("Room type already exists");
-			return false;
+			return "Room type already exists";
 		}
-			
+		
 		statement = connection.prepareStatement("INSERT INTO RoomTypes(Name, Size, Beds, HasBalcony, HasBathroom, PricePerDay) VALUES (?, ?, ?, ?, ?, ?);");
 		statement.setString (1, roomType.getName());
 		statement.setInt (2, roomType.getSize());
@@ -137,32 +143,31 @@ public class Hotel {
 		statement.setInt (4, roomType.getHasBalcony());
 		statement.setInt (5, roomType.getHasBathroom());
 		statement.setDouble (6, roomType.getPricePerDay());
-		return statement.execute();
+		statement.execute();
+		return null;
 		}
 		
-		catch (SQLException e) { System.err.println(e.getMessage()); return false; }
+		catch (SQLException e) { System.err.println(e.getMessage()); return "Database access error"; }
 		
 	}
 	
-	public boolean addReservation (Reservation reservation) {
+	public String addReservation (Reservation reservation) {
 		if (reservation == null)
-			return false;
+			return "No data provided";
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM Clients WHERE ClientID=?;");
 			statement.setInt(1, reservation.getClientID());
 			ResultSet result = statement.executeQuery();
 			if (!result.isBeforeFirst()) {
-				System.out.println("No client with ID: " + reservation.getClientID());
-				return false;
+				return "No client with ID: " + reservation.getClientID();
 			}
 			
 			statement = connection.prepareStatement("SELECT RoomTypeID FROM Rooms WHERE RoomID=?;");
 			statement.setInt(1, reservation.getRoomID());
 			result = statement.executeQuery();
 			if (!result.isBeforeFirst()) {
-				System.out.println("No room with ID: " + reservation.getRoomID());
-				return false;
+				return "No room with ID: " + reservation.getRoomID();
 			}
 			result.next();
 			int roomTypeID = result.getInt(1);
@@ -174,8 +179,7 @@ public class Hotel {
 			result = statement.executeQuery();
 			if (result.isBeforeFirst()) {
 				result.next();
-				System.out.println("Date already reserved in ReservationID: " + result.getInt(1));
-				return false;
+				return "Date already reserved in ReservationID: " + result.getInt(1);
 			}
 			
 			statement = connection.prepareStatement("SELECT PricePerDay FROM RoomTypes WHERE RoomTypeID=?;");
@@ -187,9 +191,6 @@ public class Hotel {
 			
 			reservation.setPrice(days*pricePerDay);
 			
-			System.out.println("Making reservation, price will be: " + reservation.getPrice());
-			
-			
 			statement = connection.prepareStatement("INSERT INTO Reservations VALUES (NULL, ?, ?, ?, ?, ?)");
 			statement.setInt(1, reservation.getClientID());
 			statement.setInt(2, reservation.getRoomID());
@@ -199,11 +200,10 @@ public class Hotel {
 			
 			statement.execute();
 			
-			System.out.println("Reservation has been made.");
-			return true;
+			return null;
 			
 		}
-		catch (SQLException e) { e.printStackTrace(); return false; }
+		catch (SQLException e) { e.printStackTrace(); return "Database access error"; }
 		
 	}
 	

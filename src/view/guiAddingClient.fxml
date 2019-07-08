@@ -7,7 +7,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 
-<VBox fx:controller="controllers.ControllerAddingClient" xmlns:fx="http://javafx.com/fxml" prefHeight="250" prefWidth="400" spacing="5" >
+<VBox fx:controller="controllers.ControllerAddingClient" xmlns:fx="http://javafx.com/fxml" spacing="5" id="mainBackground">
 	<padding>
 		<Insets left="10" right="10" top="10" bottom="10"/>
 	</padding>

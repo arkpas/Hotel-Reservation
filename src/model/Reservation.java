@@ -42,6 +42,9 @@ public class Reservation {
 	public void setPrice (double price) { this.price = price; }
 	
 	public static Reservation createReservation (int clientID, int roomID, LocalDate dateFrom, LocalDate dateTo) {
+		
+		if (dateFrom == null || dateTo == null)
+			return null;
 		Reservation r = new Reservation(clientID, roomID, dateFrom, dateTo);
 		return r;
 	}

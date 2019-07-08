@@ -1,11 +1,12 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Client;
 import model.Hotel;
@@ -21,12 +22,17 @@ public class ControllerAddingClient {
 	@FXML private Button addButton = new Button();
 	
 	private Hotel hotel = new Hotel();
-	private Stage errorPopup;
+	private Stage popupWindow;
 	
 	
 	@FXML
 	private void addClient () {
+		
+		Label text = new Label();
+		text.setId("red-message");
+		
 		if (hotel.connectToDatabase()) {
+			String message = "";
 			Client client = Client.createClient(
 					name.getText(),
 					surname.getText(),
@@ -35,22 +41,29 @@ public class ControllerAddingClient {
 					city.getText(),
 					postalCode.getText()
 					);
-			hotel.addClient(client);
+			
+			if ((message=hotel.addClient(client))==null) { //this method returns String with error message or null when there is no errors
+				text.setText("Client has been added to database");
+				text.setId("green-message");
+			}
+			else
+				text.setText(message);
+			
 			hotel.disconnectFromDatabase();
 		}
-		else {
-			errorPopup = new Stage();
-			VBox root = new VBox();
-			Text text = new Text("ERROR CONNECTING TO DATABASE!");
-			root.getChildren().add(text);
-			
-			errorPopup.setScene(new Scene(root, 50,50));
-			errorPopup.setOnCloseRequest(event -> errorPopup.close());
-			errorPopup.show();
-		}
+		else
+			text.setText("Error connecting to database");
 		
-		Stage stage = (Stage) addButton.getScene().getWindow();
-		stage.close();
+		popupWindow = new Stage();
+		VBox root = new VBox();
+		root.setAlignment(Pos.CENTER);
+		root.getChildren().add(text);
+		Scene scene = new Scene(root, 250, 50);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		popupWindow.setScene(scene);
+		popupWindow.show();
+		popupWindow.setOnCloseRequest(action -> popupWindow.close());
+	
 	}
 	
 }

@@ -51,6 +51,12 @@ public class Client {
 		return c;
 	}
 	
+	public boolean isEmpty () {
+		if (clientID == 0 && name.isEmpty() && surname.isEmpty() && phoneNumber.isEmpty() && address.isEmpty() && city.isEmpty() && postalCode.isEmpty())
+			return true;
+		return false;
+	}
+	
 	@Override
 	public String toString () {
 		return String.format("ID: %d\t Name: %-30s Phone: %s\t Address: %s %s %s", clientID, name + " " + surname, phoneNumber, address, postalCode, city);

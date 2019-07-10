@@ -1,11 +1,11 @@
 package controllers;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -17,15 +17,14 @@ public class ControllerAddingReservation {
 	
 	@FXML private TextField clientIDField = new TextField();
 	@FXML private TextField roomIDField = new TextField();
-	@FXML private TextField dateFromField = new TextField();
-	@FXML private TextField dateToField = new TextField();
+	@FXML private DatePicker dateFromPicker = new DatePicker();
+	@FXML private DatePicker dateToPicker = new DatePicker();
 	
 	private Stage popupWindow = new Stage();
 	private Hotel hotel = new Hotel();
 	
 	@FXML
 	private void addReservation () {
-		
 		Label text = new Label();
 		text.setId("red-message");
 		boolean isDataValid = false;
@@ -38,18 +37,20 @@ public class ControllerAddingReservation {
 		try {
 			clientID = Integer.parseInt(clientIDField.getText());
 			roomID = Integer.parseInt(roomIDField.getText());
-			dateFrom = LocalDate.parse(dateFromField.getText());
-			dateTo = LocalDate.parse(dateToField.getText());
-			isDataValid = true;
+			dateFrom = dateFromPicker.getValue();
+			dateTo = dateToPicker.getValue();
+			if (!dateFrom.isBefore(LocalDate.now()) && !dateTo.isBefore(dateFrom))
+				isDataValid = true;
+			else
+				text.setText("Date is not valid - reserving for past dates is forbidden" );
 		}
 		catch (NumberFormatException e) {
 			text.setText("Incorrect data - Client ID and Room Number should be numbers");
 		}
-		catch (DateTimeParseException e) {
-			text.setText("Date should be in format YYYY-MM-DD");
-		}
 		
 		if (isDataValid) {
+			
+			
 			if (hotel.connectToDatabase()) {
 				Reservation reservation = Reservation.createReservation(clientID, roomID, dateFrom, dateTo);
 				String message = "";

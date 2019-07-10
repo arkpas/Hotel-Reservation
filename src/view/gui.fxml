@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 
 <BorderPane fx:controller="controllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="700" id="mainBackground" >
 
@@ -22,12 +24,10 @@
 				<Button text="Make Reservation" onAction="#openReservationWindow"/>
 			</HBox>
 			<HBox spacing="5">
-				<Button text="Clients" onAction="#getClients"/>
-				<Button text="Rooms" onAction="#getRooms"/>
-				<Button text="Room Types" onAction="#getRoomTypes"/>
-				<Button text="Reservations" onAction="#getReservations"/>
+				<Button text="Search client" onAction="#openClientSearchWindow"/>
+				<Button text="Search room type" onAction="#openRoomTypeSearchWindow"/>
 			</HBox>
-			<TextArea fx:id="display" editable="false" prefHeight="300" prefWidth="700" />
+			<TextArea fx:id="display" editable="false" prefHeight="300" prefWidth="300" />
 		</VBox>
 	</bottom>
 	

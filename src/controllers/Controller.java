@@ -16,6 +16,7 @@ public class Controller {
 	
 	private Hotel hotel = new Hotel();
 	private Stage window = new Stage();
+	private Stage searchWindow = new Stage();
 	
 	@FXML private TextArea display = new TextArea();
 	
@@ -86,8 +87,8 @@ public class Controller {
 	private void openClientWindow () {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingClient.fxml"));
-			Scene scene = new Scene(root, 400, 250);
-			openWindow(scene);
+			Scene scene = new Scene(root, 270, 250);
+			openWindow(scene, "Client");
 		}
 		catch (IOException e) {
 			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
@@ -100,8 +101,8 @@ public class Controller {
 	private void openRoomWindow () {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingRoom.fxml"));
-			Scene scene = new Scene(root, 200, 100);
-			openWindow(scene);
+			Scene scene = new Scene(root, 150, 120);
+			openWindow(scene, "Room");
 		}
 		catch (IOException e) {
 			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
@@ -115,7 +116,7 @@ public class Controller {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingRoomType.fxml"));
 			Scene scene = new Scene(root, 200, 250);
-			openWindow(scene);
+			openWindow(scene, "Room type");
 		}
 		catch (IOException e) {
 			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
@@ -128,8 +129,8 @@ public class Controller {
 	private void openReservationWindow () {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/guiAddingReservation.fxml"));
-			Scene scene = new Scene(root, 200, 200);
-			openWindow(scene);
+			Scene scene = new Scene(root, 250, 200);
+			openWindow(scene, "Reservation");
 		}
 		catch (IOException e) {
 			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
@@ -138,11 +139,51 @@ public class Controller {
 		
 	}
 	
-	private void openWindow (Scene scene) {
+	@FXML
+	private void openClientSearchWindow () {
+		Parent root = null;
+		
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingClient.fxml"));
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+		Scene scene = new Scene(root, 800, 270);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		searchWindow.setScene(scene);
+		searchWindow.setTitle("Search client");
+		searchWindow.setOnCloseRequest(event -> searchWindow.close());
+		searchWindow.show();
+	}
+	
+	@FXML
+	private void openRoomTypeSearchWindow () {
+		Parent root = null;
+		
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingRoomType.fxml"));
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+		Scene scene = new Scene(root, 800, 270);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		searchWindow.setScene(scene);
+		searchWindow.setTitle("Search room type");
+		searchWindow.setOnCloseRequest(event -> searchWindow.close());
+		searchWindow.show();
+	}
+	
+	private void openWindow (Scene scene, String title) {
 		
 		scene.getStylesheets().add("/view/stylesheet.css");
 		window.setScene(scene);
-		window.setTitle("Add Room Type");
+		window.setTitle(title);
 		window.setOnCloseRequest(event -> window.close());
 		window.show();
 	}

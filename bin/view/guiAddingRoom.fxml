@@ -6,13 +6,21 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
 
 <VBox fx:controller="controllers.ControllerAddingRoom" xmlns:fx="http://javafx.com/fxml" spacing="5" id="mainBackground">
-	<padding>
-		<Insets left="10" right="10" top="10" bottom="10"/>
-	</padding>
-		<HBox spacing="5"><Label prefHeight="25" text="Number: "/> <TextField fx:id="roomIDfield" maxWidth="45"/></HBox>
-		<HBox spacing="5"><Label prefHeight="25" text="Room type: "/> <TextField fx:id="roomTypeIDfield" maxWidth="45"/></HBox>
+	<GridPane hgap="5" vgap="2">
+		<padding>
+			<Insets left="10" right="10" top="10" bottom="10"/>
+		</padding>
+		<Label text="Number: " GridPane.rowIndex="0" GridPane.columnIndex="0"/> <TextField fx:id="roomIDfield" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="45"/>
+		<Label text="Room type: " GridPane.rowIndex="1" GridPane.columnIndex="0"/> <TextField fx:id="roomTypeIDfield" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="45"/>
+	</GridPane>
+	<VBox alignment="BOTTOM_LEFT">
+		<padding>
+			<Insets left="10" right="10" top="0" bottom="10"/>
+		</padding>
 		<Button fx:id="addButton" text="Add room" onAction="#addRoom"/>
+	</VBox>
 </VBox>
 

@@ -293,6 +293,89 @@ public class Hotel {
 		return roomTypes;
 	}
 	
+	public List<Client> searchClient (Client client) {
+		
+		if(client == null || client.isEmpty())
+			return getClients();
+		
+		List<Client> clients = new ArrayList<>();
+		StringBuilder query = new StringBuilder("SELECT * FROM Clients WHERE ");
+		query.append(client.getClientID() > 0 ? "ClientID=" + client.getClientID() + " AND " : "");
+		query.append(client.getName().isEmpty() ? "" : "Name='" + client.getName() + "' AND ");
+		query.append(client.getSurname().isEmpty() ? "" : "Surname='" + client.getSurname() + "' AND ");
+		query.append(client.getPhoneNumber().isEmpty() ? "" : "PhoneNumber='" + client.getPhoneNumber() + "' AND ");
+		query.append(client.getAddress().isEmpty() ? "" : "Address='" + client.getAddress() + "' AND ");
+		query.append(client.getCity().isEmpty() ? "" : "City='" + client.getCity() + "' AND ");
+		query.append(client.getPostalCode().isEmpty() ? "" : "PostalCode='" + client.getPostalCode() + "' AND ");
+		
+		query.delete(query.length() - 5, query.length());
+		query.append(";");
+		
+		ResultSet result = null;
+		try {
+			Statement statement = connection.createStatement();
+			result = statement.executeQuery(query.toString());
+			while (result.next()) {
+				int clientID = result.getInt(1);
+				String name = result.getString(2);
+				String surname = result.getString(3);
+				String phoneNumber = result.getString(4);
+				String address = result.getString(5);
+				String city = result.getString(6);
+				String postalCode = result.getString(7);
+				
+				clients.add(new Client(clientID, name, surname, phoneNumber, address, city, postalCode));
+			}
+		}
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			return null;
+		}
+	
+		return clients;
+	}
+	
+	public List<RoomType> searchRoomType (RoomType roomType) {
+		
+		if(roomType == null)
+			return getRoomTypes();
+		
+		List<RoomType> roomTypes = new ArrayList<>();
+		StringBuilder query = new StringBuilder("SELECT * FROM RoomTypes WHERE ");
+		query.append(roomType.getRoomTypeID() > 0 ? "RoomTypeID=" + roomType.getRoomTypeID() + " AND " : "");
+		query.append(roomType.getName().isEmpty() ? "" : "Name='" + roomType.getName() + "' AND ");
+		query.append(roomType.getSize() > 0 ? "Size=" + roomType.getSize() + " AND " : "");
+		query.append(roomType.getBeds() > 0 ? "Beds=" + roomType.getBeds() + " AND " : "");
+		query.append("HasBalcony='" + roomType.getHasBalcony() + "' AND ");
+		query.append("HasBathroom='" + roomType.getHasBathroom() + "' AND ");
+		query.append(roomType.getPricePerDay() > 0 ? "PricePerDay=" + roomType.getPricePerDay() + " AND " : "");
+		
+		query.delete(query.length() - 5, query.length());
+		query.append(";");
+		
+		ResultSet result = null;
+		try {
+			Statement statement = connection.createStatement();
+			result = statement.executeQuery(query.toString());
+			while (result.next()) {
+				int roomTypeID = result.getInt(1);
+				String name = result.getString(2);
+				int size = result.getInt(3);
+				int beds = result.getInt(4);
+				int hasBalcony = result.getInt(5);
+				int hasBathroom = result.getInt(6);
+				double pricePerDay = result.getDouble(7);
+				
+				roomTypes.add(new RoomType(roomTypeID, name, size, beds, hasBalcony, hasBathroom, pricePerDay));
+			}
+		}
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			return null;
+		}
+	
+		return roomTypes;
+	}
 	
 	public boolean executeQuery (String query) {
 		

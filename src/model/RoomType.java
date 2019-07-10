@@ -29,6 +29,16 @@ public class RoomType {
 		this.pricePerDay = pricePerDay;
 	}
 	
+	public RoomType (int roomTypeID, String name, int size, int beds, boolean hasBalcony, boolean hasBathroom, double pricePerDay) {
+		this.roomTypeID = roomTypeID;
+		this.name = name;
+		this.size = size;
+		this.beds = beds;
+		this.hasBalcony = hasBalcony ? 1 : 0;
+		this.hasBathroom = hasBathroom ? 1 : 0;
+		this.pricePerDay = pricePerDay;
+	}
+	
 	public int getRoomTypeID () { return roomTypeID; }
 	
 	public String getName () { return name; }
@@ -40,6 +50,14 @@ public class RoomType {
 	public int getHasBalcony () { return hasBalcony; }
 	
 	public int getHasBathroom () { return hasBathroom; }
+	
+	public String getBalcony () {
+		return hasBalcony > 0 ? "yes" : "no";
+	}
+	
+	public String getBathroom () {
+		return hasBathroom > 0 ? "yes" : "no";
+	}
 	
 	public double getPricePerDay () { return pricePerDay; }
 	

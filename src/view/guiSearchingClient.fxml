@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<HBox fx:controller="controllers.ControllerSearchingClient" xmlns:fx="http://javafx.com/fxml" spacing="5" id="mainBackground">
+
+	<VBox>
+		<GridPane vgap="2" hgap="5">
+			<padding>
+				<Insets left="10" right="10" top="10" bottom="10"/>
+			</padding>
+				<Label text="ID: " GridPane.rowIndex="0" GridPane.columnIndex="0"/> <TextField fx:id="clientIDField" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="50"/>
+				<Label text="Name: " GridPane.rowIndex="1" GridPane.columnIndex="0"/> <TextField fx:id="nameField" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="100"/>
+				<Label text="Surname: " GridPane.rowIndex="2" GridPane.columnIndex="0"/> <TextField fx:id="surnameField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="125"/>
+				<Label text="Phone: " GridPane.rowIndex="3" GridPane.columnIndex="0"/> <TextField fx:id="phoneField" GridPane.rowIndex="3" GridPane.columnIndex="1"  maxWidth="85"/>
+				<Label text="Address: " GridPane.rowIndex="4" GridPane.columnIndex="0"/> <TextField fx:id="addressField" GridPane.rowIndex="4" GridPane.columnIndex="1"  maxWidth="150"/>
+				<Label text="City: " GridPane.rowIndex="5" GridPane.columnIndex="0"/> <TextField fx:id="cityField" GridPane.rowIndex="5" GridPane.columnIndex="1"  maxWidth="100"/>
+				<Label text="Postal code: " GridPane.rowIndex="6" GridPane.columnIndex="0"/> <TextField fx:id="postalCodeField" GridPane.rowIndex="6" GridPane.columnIndex="1" maxWidth="60"/>
+		</GridPane>
+		<VBox alignment="BOTTOM_LEFT">
+			<padding>
+				<Insets left="10" right="10" top="10" bottom="10"/>
+			</padding>
+			<Button fx:id="searchButton" onAction="#searchClient" text="Search"/>
+		</VBox>
+	</VBox>
+	
+	<TableView fx:id="tableView">
+		<columns>
+			<TableColumn text="ID" fx:id="clientID" prefWidth="30"></TableColumn>
+			<TableColumn text="Name" fx:id="name" ></TableColumn>
+			<TableColumn text="Surame" fx:id="surname" ></TableColumn>
+			<TableColumn text="Phone" fx:id="phone" ></TableColumn>
+			<TableColumn text="Address" fx:id="address" ></TableColumn>
+			<TableColumn text="City" fx:id="city" ></TableColumn>
+			<TableColumn text="Postal code" fx:id="postalCode"></TableColumn>
+		</columns>
+	</TableView>
+
+</HBox>

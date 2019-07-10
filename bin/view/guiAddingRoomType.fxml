@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.ColumnConstraints?>
 
-<VBox fx:controller="controllers.ControllerAddingRoomType" xmlns:fx="http://javafx.com/fxml" spacing="5" id="mainBackground" >
-	<padding>
-		<Insets left="10" right="10" top="10" bottom="10"/>
-	</padding>
-		<HBox spacing="5"><Label prefHeight="25" text="Name: "/> <TextField fx:id="nameField" prefWidth="75"/></HBox>
-		<HBox spacing="5"><Label prefHeight="25" text="Size: "/> <TextField fx:id="sizeField" prefWidth="100" prefHeight="25"/></HBox>
-		<HBox spacing="5"><Label prefHeight="25" text="Beds: "/> <TextField fx:id="bedsField" prefWidth="75" prefHeight="25"/></HBox>
-		<HBox spacing="5" alignment="CENTER_LEFT"><Label prefHeight="25" text="Balcony: "/> <RadioButton fx:id="balconyButton"/></HBox>
-		<HBox spacing="5" alignment="CENTER_LEFT"><Label prefHeight="25" text="Bathroom: "/> <RadioButton fx:id="bathroomButton"/></HBox>
-		<HBox spacing="5"><Label prefHeight="25" text="Price: "/> <TextField fx:id="priceField" prefWidth="75" prefHeight="25"/></HBox>
-		<HBox spacing="5"><Button onAction="#addRoomType" text="Create"/></HBox>
+<VBox fx:controller="controllers.ControllerAddingRoomType" xmlns:fx="http://javafx.com/fxml" id="mainBackground">
+	<GridPane hgap="5" vgap="2" gridLinesVisible="false" >
+		<padding>
+			<Insets left="10" right="10" top="10" bottom="10"/>
+		</padding>
+		<Label text="Name: " GridPane.rowIndex="0" GridPane.columnIndex="0" /> <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="100"/>
+		<Label text="Size: " GridPane.rowIndex="1" GridPane.columnIndex="0" /> <TextField fx:id="sizeField" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="40" />
+		<Label text="Beds: " GridPane.rowIndex="2" GridPane.columnIndex="0" /> <TextField fx:id="bedsField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="40" />
+		<Label text="Balcony: " GridPane.rowIndex="3" GridPane.columnIndex="0"/> <RadioButton fx:id="balconyButton" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+		<Label text="Bathroom: " GridPane.rowIndex="4" GridPane.columnIndex="0" /> <RadioButton fx:id="bathroomButton" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+		<Label text="Price: " GridPane.rowIndex="5" GridPane.columnIndex="0" /> <TextField fx:id="priceField" GridPane.rowIndex="5" GridPane.columnIndex="1" maxWidth="40" />
+	</GridPane>
+	<VBox alignment="BOTTOM_LEFT" >
+		<padding>
+			<Insets left="10" right="10" top="10" bottom="10"/>
+		</padding>
+		<Button text="Create" onAction="#addRoomType"/>
+	</VBox>
 </VBox>

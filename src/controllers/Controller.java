@@ -9,79 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import model.*;
 
 
 public class Controller {
 	
-	private Hotel hotel = new Hotel();
 	private Stage window = new Stage();
 	private Stage searchWindow = new Stage();
 	
 	@FXML private TextArea display = new TextArea();
-	
-	@FXML
-	private void getClients() {
-		if (hotel.connectToDatabase()) {
-			display.setText(display.getText() + "\n\nCLIENTS");
-			for (Client c : hotel.getClients()) {
-				display.setText(display.getText() + "\n" + c);
-			}
-			hotel.disconnectFromDatabase();
-		}
-		else {
-			display.setText(display.getText() + "\n" + "Error connecting to database");
-		}
-		display.end();
-	}
-	
-	@FXML
-	private void getRooms() {
-		
-		if (hotel.connectToDatabase()) {
-			display.setText(display.getText() + "\n\nROOMS");
-			for (Room r : hotel.getRooms()) {
-				display.setText(display.getText() + "\n" + r);
-			}
-			hotel.disconnectFromDatabase();
-		}
-		else {
-			display.setText(display.getText() + "\n" + "Error connecting to database");
-		}
-		display.end();
-	}
-	
-	@FXML
-	private void getRoomTypes() {
-		
-		if (hotel.connectToDatabase()) {
-			display.setText(display.getText() + "\n\nROOM TYPES");
-			for (RoomType rt : hotel.getRoomTypes()) {
-				display.setText(display.getText() + "\n" + rt);
-			}
-			hotel.disconnectFromDatabase();
-		}
-		else {
-			display.setText(display.getText() + "\n" + "Error connecting to database");
-		}
-		display.end();
-	}
-	
-	@FXML
-	private void getReservations() {
-		
-		if (hotel.connectToDatabase()) {
-			display.setText(display.getText() + "\n\nRESERVATIONS");
-			for (Reservation r : hotel.getReservations()) {
-				display.setText(display.getText() + "\n" + r);
-			}
-			hotel.disconnectFromDatabase();
-		}
-		else {
-			display.setText(display.getText() + "\n" + "Error connecting to database");
-		}
-		display.end();
-	}
 	
 	@FXML
 	private void openClientWindow () {
@@ -175,6 +110,46 @@ public class Controller {
 		scene.getStylesheets().add("/view/stylesheet.css");
 		searchWindow.setScene(scene);
 		searchWindow.setTitle("Search room type");
+		searchWindow.setOnCloseRequest(event -> searchWindow.close());
+		searchWindow.show();
+	}
+	
+	@FXML
+	private void openRoomSearchWindow () {
+		Parent root = null;
+		
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingRoom.fxml"));
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+		Scene scene = new Scene(root, 800, 270);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		searchWindow.setScene(scene);
+		searchWindow.setTitle("Search room");
+		searchWindow.setOnCloseRequest(event -> searchWindow.close());
+		searchWindow.show();
+	}
+	
+	@FXML
+	private void openReservationSearchWindow () {
+		Parent root = null;
+		
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingReservation.fxml"));
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+		Scene scene = new Scene(root, 800, 270);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		searchWindow.setScene(scene);
+		searchWindow.setTitle("Search reservation");
 		searchWindow.setOnCloseRequest(event -> searchWindow.close());
 		searchWindow.show();
 	}

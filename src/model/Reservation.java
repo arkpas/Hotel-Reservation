@@ -10,6 +10,8 @@ public class Reservation {
 	private LocalDate dateTo;
 	private double price;
 	
+	public Reservation () {}
+	
 	private Reservation (int clientID, int roomID, LocalDate dateFrom, LocalDate dateTo) {
 		this.clientID = clientID;
 		this.roomID = roomID;
@@ -39,7 +41,19 @@ public class Reservation {
 	
 	public double getPrice () { return price; }
 	
+	
+	public void setReservationID (int reservationID) { this.reservationID = reservationID;}
+	
+	public void setClientID (int clientID) { this.clientID = clientID; }
+	
+	public void setRoomID (int roomID) { this.roomID = roomID; }
+	
+	public void setDateFrom (LocalDate dateFrom) { this.dateFrom = dateFrom; }
+	
+	public void setDateTo (LocalDate dateTo) { this.dateTo = dateTo; }
+	
 	public void setPrice (double price) { this.price = price; }
+
 	
 	public static Reservation createReservation (int clientID, int roomID, LocalDate dateFrom, LocalDate dateTo) {
 		

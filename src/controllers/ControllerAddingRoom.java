@@ -30,10 +30,14 @@ public class ControllerAddingRoom {
 		text.setId("red-message");
 		
 		try {
-		roomID = Integer.parseInt(roomIDfield.getText());
-		roomTypeID = Integer.parseInt(roomTypeIDfield.getText());
-		isDataValid = true;
-		}
+			roomID = Integer.parseInt(roomIDfield.getText());
+			roomTypeID = Integer.parseInt(roomTypeIDfield.getText());
+			if (roomID < 0) {
+				text.setText("Room number can not be less than zero");
+			}
+			else 
+				isDataValid = true;
+			}
 		catch (NumberFormatException e) {
 			text.setText("Please enter only numbers.");
 		}

@@ -1,9 +1,12 @@
 package controllers;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Client;
 import model.Hotel;
 
-public class ControllerSearchingClient {
+public class ControllerSearchingClient implements Initializable {
 	
 	@FXML private TextField clientIDField;
 	@FXML private TextField nameField;
@@ -34,27 +37,12 @@ public class ControllerSearchingClient {
 	
 	
 	
-	private Hotel hotel = new Hotel();
+	private Hotel hotel;
 	
-	@FXML
-	private void searchClient () {
+	@Override
+	public void initialize (URL url, ResourceBundle resource) {
+		hotel = new Hotel();
 		
-		int id = 0;
-
-		if (!clientIDField.getText().isEmpty()) {
-			try {
-				id = Integer.parseInt(clientIDField.getText());
-			}
-			catch (NumberFormatException e) {}
-		}
-		Client client = new Client(id, nameField.getText(), surnameField.getText(), phoneField.getText(), addressField.getText(), cityField.getText(), postalCodeField.getText());
-		
-		List<Client> results = new ArrayList<>();
-		if (hotel.connectToDatabase()) {
-			results.addAll(hotel.searchClient(client));
-			hotel.disconnectFromDatabase();
-		}
-
 		clientID.setCellValueFactory(new PropertyValueFactory<Client, Integer>("clientID"));
 		name.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
 		surname.setCellValueFactory(new PropertyValueFactory<Client, String>("surname"));
@@ -62,6 +50,19 @@ public class ControllerSearchingClient {
 		address.setCellValueFactory(new PropertyValueFactory<Client, String>("address"));
 		city.setCellValueFactory(new PropertyValueFactory<Client, String>("city"));
 		postalCode.setCellValueFactory(new PropertyValueFactory<Client, String>("postalCode"));
+	}
+	
+	@FXML
+	private void searchClient () {
+		
+		Client client = Client.parseDataForSearch(clientIDField.getText(), nameField.getText(), surnameField.getText(), phoneField.getText(), addressField.getText(), cityField.getText(), postalCodeField.getText());
+		
+		List<Client> results = new ArrayList<>();
+		if (hotel.connectToDatabase()) {
+			results.addAll(hotel.searchClient(client));
+			hotel.disconnectFromDatabase();
+		}
+		
 		tableView.getItems().setAll(results);
 	}
 		

@@ -26,6 +26,8 @@
 			<HBox spacing="5">
 				<Button text="Search client" onAction="#openClientSearchWindow"/>
 				<Button text="Search room type" onAction="#openRoomTypeSearchWindow"/>
+				<Button text="Search room" onAction="#openRoomSearchWindow"/>
+				<Button text="Search reservation" onAction="#openReservationSearchWindow"/>
 			</HBox>
 			<TextArea fx:id="display" editable="false" prefHeight="300" prefWidth="300" />
 		</VBox>

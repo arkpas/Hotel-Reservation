@@ -1,60 +1,58 @@
 package controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Hotel;
 import model.RoomType;
 
-public class ControllerAddingRoomType {
+public class ControllerAddingRoomType implements Initializable {
 
-	@FXML private TextField nameField = new TextField();
-	@FXML private TextField sizeField = new TextField();
-	@FXML private TextField bedsField = new TextField();
-	@FXML private RadioButton balconyButton = new RadioButton();
-	@FXML private RadioButton bathroomButton = new RadioButton();
-	@FXML private TextField priceField = new TextField();
+	@FXML private TextField nameField;
+	@FXML private TextField sizeField;
+	@FXML private TextField bedsField;
+	@FXML private ComboBox<String> balconyBox;
+	@FXML private ComboBox<String> bathroomBox;
+	@FXML private TextField priceField;
 	
-	private Stage popupWindow = new Stage();
-	private Hotel hotel = new Hotel();
+	private Stage popupWindow;
+	private Hotel hotel;
 	
+	
+	@Override
+	public void initialize (URL url, ResourceBundle resource) {
+		balconyBox.getItems().addAll("yes", "no");
+		balconyBox.setValue(balconyBox.getItems().get(0));
+		bathroomBox.getItems().addAll("yes", "no");
+		bathroomBox.setValue(bathroomBox.getItems().get(0));
+		
+		popupWindow = new Stage();
+		hotel = new Hotel();
+	}
 	
 	@FXML
 	private void addRoomType () {
 		
-		Label text = new Label();
+		TextArea text = new TextArea();
+		text.setWrapText(true);
 		text.setId("red-message");
-		boolean isDataValid = false;
 		
-		int size = 0;
-		int beds = 0;
-		boolean balcony = false;
-		boolean bathroom = false;
-		double price = 0;
-		
-
-		
-		
-		try {
-			size = Integer.parseInt(sizeField.getText());
-			beds = Integer.parseInt(bedsField.getText());
-			balcony = balconyButton.isSelected();
-			bathroom = bathroomButton.isSelected();
-			price = Double.parseDouble(priceField.getText());
-			isDataValid = true;
-		}
-		catch (NumberFormatException e) {
-			text.setText("Incorrect data - size, beds and price should be numbers");
-		}
-		if (isDataValid) {
+		RoomType roomType = RoomType.parseData(nameField.getText(), sizeField.getText(), bedsField.getText(), balconyBox.getValue(), bathroomBox.getValue(), priceField.getText());
+	
+		if (roomType == null)
+			text.setText("Provided data is incorrect");
+		else {
 			if (hotel.connectToDatabase()) {
 				String message = "";
-				RoomType roomType = RoomType.createRoomType(nameField.getText(), size, beds, balcony, bathroom, price);
 				if ((message = hotel.addRoomType(roomType)) == null) {
 					text.setText("Room type has been added to database");
 					text.setId("green-message");
@@ -69,7 +67,7 @@ public class ControllerAddingRoomType {
 		VBox root = new VBox();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(text);
-		Scene scene = new Scene(root, 250, 50);
+		Scene scene = new Scene(root, 400, 50);
 		scene.getStylesheets().add("/view/stylesheet.css");
 		popupWindow.setScene(scene);
 		popupWindow.show();

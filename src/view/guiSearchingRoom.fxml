@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<HBox fx:controller="controllers.ControllerSearchingRoom" xmlns:fx="http://javafx.com/fxml" id="mainBackground">
+	<VBox>
+		<GridPane hgap="5" vgap="2" >
+			<padding>
+				<Insets left="10" right="10" top="10" bottom="10"/>
+			</padding>
+			<Label text="Room nr: " GridPane.rowIndex="0" GridPane.columnIndex="0" /> <TextField fx:id="roomIDField" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="40"/>
+			<Label text="Room type ID: " GridPane.rowIndex="1" GridPane.columnIndex="0" /> <TextField fx:id="roomTypeIDField" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="40"/>
+			<Label text="Room type: " GridPane.rowIndex="2" GridPane.columnIndex="0" /> <TextField fx:id="roomTypeField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="100" />
+			<Label text="Price: " GridPane.rowIndex="3" GridPane.columnIndex="0" /> <TextField fx:id="priceField" GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="70" />
+		</GridPane>
+		<HBox alignment="BOTTOM_LEFT" spacing="10">
+			<padding>
+				<Insets left="10" right="10" top="10" bottom="10"/>
+			</padding>
+			<Button text="Search" onAction="#searchRoom"/>
+		</HBox>
+	</VBox>
+	<TableView fx:id="tableView">
+		<columns>
+			<TableColumn text="Room nr" fx:id="roomIDCol"/>
+			<TableColumn text="Type ID" fx:id="roomTypeIDCol"/>
+			<TableColumn text="Type" fx:id="nameCol"/>
+		</columns>
+	</TableView>
+</HBox>

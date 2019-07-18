@@ -21,7 +21,7 @@
 			<Label text="Room nr: " GridPane.rowIndex="0" GridPane.columnIndex="0" /> <TextField fx:id="roomIDField" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="40"/>
 			<Label text="Room type ID: " GridPane.rowIndex="1" GridPane.columnIndex="0" /> <TextField fx:id="roomTypeIDField" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="40"/>
 			<Label text="Room type: " GridPane.rowIndex="2" GridPane.columnIndex="0" /> <TextField fx:id="roomTypeField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="100" />
-			<Label text="Price: " GridPane.rowIndex="3" GridPane.columnIndex="0" /> <TextField fx:id="priceField" GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="70" />
+			<Label text="Max price: " GridPane.rowIndex="3" GridPane.columnIndex="0" /> <TextField fx:id="priceField" GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="70" />
 		</GridPane>
 		<HBox alignment="BOTTOM_LEFT" spacing="10">
 			<padding>
@@ -35,6 +35,7 @@
 			<TableColumn text="Room nr" fx:id="roomIDCol"/>
 			<TableColumn text="Type ID" fx:id="roomTypeIDCol"/>
 			<TableColumn text="Type" fx:id="nameCol"/>
+			<TableColumn text="Price" fx:id="priceCol"/>
 		</columns>
 	</TableView>
 </HBox>

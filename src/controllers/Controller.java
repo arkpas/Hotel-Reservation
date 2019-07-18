@@ -87,11 +87,7 @@ public class Controller {
 		}
 		
 		Scene scene = new Scene(root, 800, 270);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		searchWindow.setScene(scene);
-		searchWindow.setTitle("Search client");
-		searchWindow.setOnCloseRequest(event -> searchWindow.close());
-		searchWindow.show();
+		openSearchWindow(scene, "Search client");
 	}
 	
 	@FXML
@@ -107,11 +103,7 @@ public class Controller {
 		}
 		
 		Scene scene = new Scene(root, 800, 270);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		searchWindow.setScene(scene);
-		searchWindow.setTitle("Search room type");
-		searchWindow.setOnCloseRequest(event -> searchWindow.close());
-		searchWindow.show();
+		openSearchWindow(scene, "Search room type");
 	}
 	
 	@FXML
@@ -127,11 +119,7 @@ public class Controller {
 		}
 		
 		Scene scene = new Scene(root, 800, 270);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		searchWindow.setScene(scene);
-		searchWindow.setTitle("Search room");
-		searchWindow.setOnCloseRequest(event -> searchWindow.close());
-		searchWindow.show();
+		openSearchWindow(scene, "Search room");
 	}
 	
 	@FXML
@@ -147,11 +135,24 @@ public class Controller {
 		}
 		
 		Scene scene = new Scene(root, 800, 270);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		searchWindow.setScene(scene);
-		searchWindow.setTitle("Search reservation");
-		searchWindow.setOnCloseRequest(event -> searchWindow.close());
-		searchWindow.show();
+		openSearchWindow(scene, "Search reservation");
+	}
+	
+	@FXML
+	private void openFreeRoomSearchWindow () {
+		Parent root = null;
+		
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingFreeRoom.fxml"));
+		}
+		catch (IOException e) {
+			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			e.printStackTrace();
+		}
+		
+		Scene scene = new Scene(root, 800, 270);
+		openSearchWindow(scene, "Search free room");
+		
 	}
 	
 	private void openWindow (Scene scene, String title) {
@@ -161,6 +162,15 @@ public class Controller {
 		window.setTitle(title);
 		window.setOnCloseRequest(event -> window.close());
 		window.show();
+	}
+	
+	private void openSearchWindow (Scene scene, String title) {
+		
+		scene.getStylesheets().add("/view/stylesheet.css");
+		searchWindow.setScene(scene);
+		searchWindow.setTitle(title);
+		searchWindow.setOnCloseRequest(event -> searchWindow.close());
+		searchWindow.show();
 	}
 	
 

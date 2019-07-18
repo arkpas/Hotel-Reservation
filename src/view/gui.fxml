@@ -29,6 +29,9 @@
 				<Button text="Search room" onAction="#openRoomSearchWindow"/>
 				<Button text="Search reservation" onAction="#openReservationSearchWindow"/>
 			</HBox>
+			<HBox spacing="5">
+				<Button text="Free rooms" onAction="#openFreeRoomSearchWindow"/>
+			</HBox>
 			<TextArea fx:id="display" editable="false" prefHeight="300" prefWidth="300" />
 		</VBox>
 	</bottom>

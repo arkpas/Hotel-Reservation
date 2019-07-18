@@ -10,7 +10,7 @@ public class RoomType {
 	private int hasBathroom;
 	private double pricePerDay;
 	
-	private RoomType() 	{}
+	public RoomType() 	{}
 	
 	public RoomType (int roomTypeID, String name, int size, int beds, int hasBalcony, int hasBathroom, double pricePerDay) {
 		this.roomTypeID = roomTypeID;
@@ -43,6 +43,12 @@ public class RoomType {
 	public String getBathroom () {
 		return hasBathroom > 0 ? "yes" : "no";
 	}
+	
+	public void setRoomTypeID (int roomTypeID) { this.roomTypeID = roomTypeID; }
+	
+	public void setName (String roomType) { this.name = roomType; }
+	
+	public void setPricePerDay (double pricePerDay) { this.pricePerDay = pricePerDay; }
 	
 	public static RoomType parseData (String name, String size, String beds, String hasBalcony, String hasBathroom, String pricePerDay) {
 		RoomType roomType = null;
@@ -101,7 +107,7 @@ public class RoomType {
 		return true;
 	}
 	
-	private static int parseInt (String number) {
+	public static final int parseInt (String number) {
 		int result = Integer.MAX_VALUE;
 
 		if (!number.isEmpty()) {
@@ -115,7 +121,7 @@ public class RoomType {
 		
 	}
 	
-	private static double parseDouble (String number) {
+	public static final double parseDouble (String number) {
 		double result = Double.MAX_VALUE;
 
 		if (!number.isEmpty()) {

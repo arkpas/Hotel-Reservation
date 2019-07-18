@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Hotel;
@@ -26,6 +27,8 @@ public class ControllerAddingRoomType implements Initializable {
 	
 	private Stage popupWindow;
 	private Hotel hotel;
+	private VBox root;
+	private TextArea text;
 	
 	
 	@Override
@@ -37,13 +40,27 @@ public class ControllerAddingRoomType implements Initializable {
 		
 		popupWindow = new Stage();
 		hotel = new Hotel();
+		
+		root = new VBox();
+		root.setOnKeyPressed(event -> {
+			if(event.getCode().equals(KeyCode.ESCAPE))
+				popupWindow.close();
+				});
+		root.setAlignment(Pos.CENTER);
+		
+		text = new TextArea();
+		text.setEditable(false);
+		text.setWrapText(true);
+		root.getChildren().add(text);
+		
+		Scene scene = new Scene(root, 400, 50);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		popupWindow.setScene(scene);
 	}
 	
 	@FXML
 	private void addRoomType () {
-		
-		TextArea text = new TextArea();
-		text.setWrapText(true);
+	
 		text.setId("red-message");
 		
 		RoomType roomType = RoomType.parseData(nameField.getText(), sizeField.getText(), bedsField.getText(), balconyBox.getValue(), bathroomBox.getValue(), priceField.getText());
@@ -64,12 +81,7 @@ public class ControllerAddingRoomType implements Initializable {
 				text.setText("Error connecting to database");
 		}
 		
-		VBox root = new VBox();
-		root.setAlignment(Pos.CENTER);
-		root.getChildren().add(text);
-		Scene scene = new Scene(root, 400, 50);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		popupWindow.setScene(scene);
+	
 		popupWindow.show();
 		popupWindow.setOnCloseRequest(action -> popupWindow.close());
 		

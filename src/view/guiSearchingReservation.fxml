@@ -12,7 +12,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 
-<HBox fx:controller="controllers.ControllerSearchingReservation" xmlns:fx="http://javafx.com/fxml" id="mainBackground">
+<HBox fx:controller="controllers.ControllerSearchingReservation" xmlns:fx="http://javafx.com/fxml" id="mainBackground" onKeyPressed="#enterPressedAction">
 	<VBox>
 		<GridPane hgap="5" vgap="2" >
 			<padding>
@@ -20,19 +20,23 @@
 			</padding>
 			<Label text="Reservation ID: " GridPane.rowIndex="0" GridPane.columnIndex="0" /> <TextField fx:id="reservationIDField" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="40"/>
 			<Label text="Client ID: " GridPane.rowIndex="1" GridPane.columnIndex="0" /> <TextField fx:id="clientIDField" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="40"/>
-			<Label text="Room ID: " GridPane.rowIndex="2" GridPane.columnIndex="0" /> <TextField fx:id="roomIDField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="100" />
+			<Label text="Name: " GridPane.rowIndex="2" GridPane.columnIndex="0" /> <TextField fx:id="clientNameField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="100" />
+			<Label text="Surname: " GridPane.rowIndex="3" GridPane.columnIndex="0" /> <TextField fx:id="clientSurnameField" GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="100" />
+			<Label text="Room nr: " GridPane.rowIndex="4" GridPane.columnIndex="0" /> <TextField fx:id="roomIDField" GridPane.rowIndex="4" GridPane.columnIndex="1" maxWidth="40" />
 		</GridPane>
 		<HBox alignment="BOTTOM_LEFT" spacing="10">
 			<padding>
 				<Insets left="10" right="10" top="10" bottom="10"/>
 			</padding>
-			<Button text="Search" onAction="#searchReservations"/>
+			<Button text="Search" onAction="#searchReservation"/>
 		</HBox>
 	</VBox>
 	<TableView fx:id="tableView">
 		<columns>
 			<TableColumn text="Reser. ID" fx:id="reservationIDCol"/>
 			<TableColumn text="Client ID" fx:id="clientIDCol"/>
+			<TableColumn text="Name" fx:id="nameCol"/>
+			<TableColumn text="Surname" fx:id="surnameCol"/>
 			<TableColumn text="Room nr" fx:id="roomIDCol"/>
 			<TableColumn text="From" fx:id="dateFromCol"/>
 			<TableColumn text="To" fx:id="dateToCol"/>

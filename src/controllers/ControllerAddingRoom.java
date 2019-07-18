@@ -1,24 +1,55 @@
 package controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Hotel;
 import model.Room;
 
-public class ControllerAddingRoom {
+public class ControllerAddingRoom implements Initializable {
 	
 	@FXML private TextField roomIDfield;
 	@FXML private TextField roomTypeIDfield;
 	@FXML private Button addButton = new Button();
 	
-	private Hotel hotel = new Hotel();
-	private Stage popupWindow = new Stage();
+	private Hotel hotel;
+	private Stage popupWindow;
+	private VBox root;
+	private TextArea text;
+	
+	
+	
+	@Override
+	public void initialize (URL url, ResourceBundle resource) {
+		hotel = new Hotel();
+		popupWindow = new Stage();
+		
+		root = new VBox();
+		root.setAlignment(Pos.CENTER);
+		root.setOnKeyPressed(event -> {
+			if(event.getCode().equals(KeyCode.ESCAPE))
+				popupWindow.close();
+				});
+		
+		text = new TextArea();
+		text.setEditable(false);
+		text.setWrapText(true);
+		root.getChildren().add(text);
+		
+		Scene scene = new Scene(root, 400, 50);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		popupWindow.setScene(scene);
+	}
 	
 	@FXML
 	private void addRoom () {
@@ -26,7 +57,6 @@ public class ControllerAddingRoom {
 		boolean isDataValid = false;
 		int roomID = 0;
 		int roomTypeID = 0;
-		Label text = new Label();
 		text.setId("red-message");
 		
 		try {
@@ -58,12 +88,8 @@ public class ControllerAddingRoom {
 				text.setText("Error connecting to database.");
 		}
 		
-		VBox root = new VBox();
-		root.setAlignment(Pos.CENTER);
-		root.getChildren().add(text);
-		Scene scene = new Scene(root, 250, 50);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		popupWindow.setScene(scene);
+
+
 		popupWindow.show();
 		popupWindow.setOnCloseRequest(action -> popupWindow.close());
 		

@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Hotel;
-import model.RoomJoinRoomType;
+import model.RoomJoin;
 
 public class ControllerSearchingRoom implements Initializable {
 	
@@ -23,27 +23,29 @@ public class ControllerSearchingRoom implements Initializable {
 	
 	private Hotel hotel = new Hotel();
 	
-	@FXML private TableView<RoomJoinRoomType> tableView;
-	@FXML private TableColumn<RoomJoinRoomType, Integer> roomIDCol;
-	@FXML private TableColumn<RoomJoinRoomType, Integer> roomTypeIDCol;
-	@FXML private TableColumn<RoomJoinRoomType, String> nameCol;
+	@FXML private TableView<RoomJoin> tableView;
+	@FXML private TableColumn<RoomJoin, Integer> roomIDCol;
+	@FXML private TableColumn<RoomJoin, Integer> roomTypeIDCol;
+	@FXML private TableColumn<RoomJoin, String> nameCol;
+	@FXML private TableColumn<RoomJoin, Double> priceCol;
 	
 	@Override
 	public void initialize (URL url, ResourceBundle resource) {
-		roomIDCol.setCellValueFactory(new PropertyValueFactory<RoomJoinRoomType, Integer>("roomID"));
-		roomTypeIDCol.setCellValueFactory(new PropertyValueFactory<RoomJoinRoomType, Integer>("roomTypeID"));
-		nameCol.setCellValueFactory(new PropertyValueFactory<RoomJoinRoomType, String>("name"));
+		roomIDCol.setCellValueFactory(new PropertyValueFactory<RoomJoin, Integer>("roomID"));
+		roomTypeIDCol.setCellValueFactory(new PropertyValueFactory<RoomJoin, Integer>("roomTypeID"));
+		nameCol.setCellValueFactory(new PropertyValueFactory<RoomJoin, String>("name"));
+		priceCol.setCellValueFactory(new PropertyValueFactory<RoomJoin, Double>("pricePerDay"));
 	}
 	
 	@FXML
 	private void searchRoom () {
 		
-		List<RoomJoinRoomType> results = new ArrayList<>();
+		List<RoomJoin> results = new ArrayList<>();
 		
-		RoomJoinRoomType rjrt = RoomJoinRoomType.parseDataForSearch(roomIDField.getText(), roomTypeIDField.getText(), roomTypeField.getText(), priceField.getText());
+		RoomJoin rj = RoomJoin.parseDataForSearch(roomIDField.getText(), roomTypeIDField.getText(), roomTypeField.getText(), priceField.getText());
 		
 		if (hotel.connectToDatabase()) {
-			results.addAll(hotel.searchRoom(rjrt));
+			results.addAll(hotel.searchRoom(rj));
 			hotel.disconnectFromDatabase();
 		}
 	

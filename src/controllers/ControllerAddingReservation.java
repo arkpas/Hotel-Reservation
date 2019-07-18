@@ -1,31 +1,60 @@
 package controllers;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Hotel;
 import model.Reservation;
 
-public class ControllerAddingReservation {
+public class ControllerAddingReservation implements Initializable {
 	
 	@FXML private TextField clientIDField = new TextField();
 	@FXML private TextField roomIDField = new TextField();
 	@FXML private DatePicker dateFromPicker = new DatePicker();
 	@FXML private DatePicker dateToPicker = new DatePicker();
 	
-	private Stage popupWindow = new Stage();
-	private Hotel hotel = new Hotel();
+	private Stage popupWindow;
+	private Hotel hotel;
+	private VBox root;
+	private TextArea text;
+	
+	@Override
+	public void initialize (URL url, ResourceBundle resource) {
+
+		popupWindow = new Stage();
+		hotel = new Hotel();
+		
+		root = new VBox();
+		root.setOnKeyPressed(event -> {
+			if(event.getCode().equals(KeyCode.ESCAPE))
+				popupWindow.close();
+				});
+		root.setAlignment(Pos.CENTER);
+		
+		text = new TextArea();
+		text.setEditable(false);
+		text.setWrapText(true);
+		root.getChildren().add(text);
+		
+		Scene scene = new Scene(root, 400, 50);
+		scene.getStylesheets().add("/view/stylesheet.css");
+		popupWindow.setScene(scene);
+	}
 	
 	@FXML
 	private void addReservation () {
-		Label text = new Label();
+
 		text.setId("red-message");
 		boolean isDataValid = false;
 		
@@ -66,13 +95,7 @@ public class ControllerAddingReservation {
 				text.setText("Error connecting to database");
 		}
 		
-		
-		VBox root = new VBox();
-		root.setAlignment(Pos.CENTER);
-		root.getChildren().add(text);
-		Scene scene = new Scene(root, 400, 30);
-		scene.getStylesheets().add("/view/stylesheet.css");
-		popupWindow.setScene(scene);
+
 		popupWindow.show();
 		popupWindow.setOnCloseRequest(action -> popupWindow.close());
 		

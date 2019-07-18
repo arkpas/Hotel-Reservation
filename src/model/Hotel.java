@@ -127,6 +127,10 @@ public class Hotel {
 	
 	public String addRoomType (RoomType roomType) {
 		
+		
+		/* This method returns null only when room is added successfully 
+		 * Otherwise it will return reason why adding room failed */
+		
 		if (roomType == null)
 			return "No data provided";
 		
@@ -153,6 +157,11 @@ public class Hotel {
 	}
 	
 	public String addReservation (Reservation reservation) {
+		
+		
+		/* This method returns null only when room is added successfully 
+		 * Otherwise it will return reason why adding room failed */
+		
 		if (reservation == null)
 			return "No data provided";
 		
@@ -230,29 +239,8 @@ public class Hotel {
 		return clients;
 	}
 	
-	public List<ReservationJoin> getReservations () {
-		List<ReservationJoin> reservations = new ArrayList<>();
-		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT re.ReservationID, c.ClientID, ro.RoomID, re.DateFrom, re.DateTo FROM Reservations AS re JOIN Clients AS c ON re.ClientID=c.ClientID JOIN Rooms AS ro ON re.RoomID=ro.RoomID;");
-			ResultSet result = statement.executeQuery();
-			while (result.next()) {
-				int reservationID = result.getInt(1);
-				int clientID = result.getInt(2);
-				int roomID = result.getInt(3);
-				LocalDate dateFrom = LocalDate.parse(result.getString(4));
-				LocalDate dateTo = LocalDate.parse(result.getString(5));
-		
-				reservations.add(new ReservationJoin(reservationID, clientID, roomID, dateFrom, dateTo));
-				
-			}
-		}
-		catch (SQLException e) {System.out.println(e.getMessage());}
-		
-		return reservations;
-	}
-	
-	public List<RoomJoinRoomType> getRooms () {
-		List<RoomJoinRoomType> rooms = new ArrayList<>();
+	public List<RoomJoin> getRooms () {
+		List<RoomJoin> rooms = new ArrayList<>();
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT r.RoomID, r.RoomTypeID, rt.Name, rt.Size, rt.Beds, rt.HasBalcony, rt.HasBathroom, rt.PricePerDay FROM Rooms AS r JOIN RoomTypes AS rt WHERE r.RoomTypeID=rt.roomTypeID;");
@@ -267,7 +255,7 @@ public class Hotel {
 				int hasBathroom = result.getInt(7);
 				double pricePerDay = result.getDouble(8);
 				
-				rooms.add(new RoomJoinRoomType(roomID, roomTypeID, name, size, beds, hasBalcony, hasBathroom, pricePerDay));
+				rooms.add(new RoomJoin(roomID, roomTypeID, name, size, beds, hasBalcony, hasBathroom, pricePerDay));
 				
 			}
 		}
@@ -383,17 +371,17 @@ public class Hotel {
 		return roomTypes;
 	}
 	
-public List<RoomJoinRoomType> searchRoom (RoomJoinRoomType rjrt) {
+	public List<RoomJoin> searchRoom (RoomJoin rj) {
 		
-		if (rjrt == null)
+		if (rj == null)
 			return getRooms();
 		
-		List<RoomJoinRoomType> rooms = new ArrayList<>();
+		List<RoomJoin> rooms = new ArrayList<>();
 		StringBuilder query = new StringBuilder("SELECT r.RoomID, r.RoomTypeID, rt.Name, rt.Size, rt.Beds, rt.HasBalcony, rt.HasBathroom, rt.PricePerDay FROM Rooms AS r JOIN RoomTypes AS rt WHERE r.RoomTypeID=rt.roomTypeID AND ");
-		query.append(rjrt.getRoomID() < Integer.MAX_VALUE ? "r.RoomID='" + rjrt.getRoomID() + "' AND " : "");
-		query.append(rjrt.getRoomTypeID() < Integer.MAX_VALUE ? "r.RoomTypeID='" + rjrt.getRoomTypeID() + "' AND " : "");
-		query.append(rjrt.getName().isEmpty() ? "" : "rt.Name='" + rjrt.getName() + "' AND ");
-		query.append(rjrt.getPricePerDay() < Double.MAX_VALUE ? "rt.PricePerDay='" + rjrt.getPricePerDay() + "' AND " : "");
+		query.append(rj.getRoomID() < Integer.MAX_VALUE ? "r.RoomID='" + rj.getRoomID() + "' AND " : "");
+		query.append(rj.getRoomTypeID() < Integer.MAX_VALUE ? "r.RoomTypeID='" + rj.getRoomTypeID() + "' AND " : "");
+		query.append(rj.getName().isEmpty() ? "" : "rt.Name='" + rj.getName() + "' AND ");
+		query.append(rj.getPricePerDay() < Double.MAX_VALUE ? "rt.PricePerDay<='" + rj.getPricePerDay() + "' AND " : "");
 		
 		
 		query.delete(query.length() - 5, query.length());
@@ -411,7 +399,7 @@ public List<RoomJoinRoomType> searchRoom (RoomJoinRoomType rjrt) {
 				int hasBathroom = result.getInt(7);
 				double pricePerDay = result.getDouble(8);
 				
-				rooms.add(new RoomJoinRoomType(roomID, roomTypeID, name, size, beds, hasBalcony, hasBathroom, pricePerDay));
+				rooms.add(new RoomJoin(roomID, roomTypeID, name, size, beds, hasBalcony, hasBathroom, pricePerDay));
 				
 			}
 		}
@@ -420,6 +408,72 @@ public List<RoomJoinRoomType> searchRoom (RoomJoinRoomType rjrt) {
 		return rooms;
 
 	}
+
+	public List<ReservationJoin> searchReservation (ReservationJoin data) {
+		List<ReservationJoin> reservations = new ArrayList<>();
+		
+		if (data==null)
+			return reservations;
+		
+		try {
+			StringBuilder query = new StringBuilder("SELECT re.ReservationID, c.ClientID, c.Name, c.Surname, ro.RoomID, re.DateFrom, re.DateTo FROM Reservations AS re JOIN Clients AS c ON re.ClientID=c.ClientID JOIN Rooms AS ro ON re.RoomID=ro.RoomID WHERE 1=1 AND ");
+			query.append(data.getReservationID() < Integer.MAX_VALUE ? "re.ReservationID='" + data.getReservationID() + "' AND " : "");
+			query.append(data.getClientID() < Integer.MAX_VALUE ? "c.ClientID='" + data.getClientID() + "' AND " : "");
+			query.append(data.getClientName().isEmpty() ? "" : "c.Name='" + data.getClientName() + "' AND ");
+			query.append(data.getClientSurname().isEmpty() ? "" : "c.Surname='" + data.getClientSurname() + "' AND ");
+			query.append(data.getRoomID() < Integer.MAX_VALUE ? "ro.RoomID='" + data.getRoomID() + "' AND " : "");
+			
+			
+			query.delete(query.length() - 5, query.length());
+			query.append(";");
+			PreparedStatement statement = connection.prepareStatement(query.toString());
+			ResultSet result = statement.executeQuery();
+			
+			while (result.next()) {
+				int reservationID = result.getInt(1);
+				int clientID = result.getInt(2);
+				String name = result.getString(3);
+				String surname = result.getString(4);
+				int roomID = result.getInt(5);
+				LocalDate dateFrom = LocalDate.parse(result.getString(6));
+				LocalDate dateTo = LocalDate.parse(result.getString(7));
+		
+				reservations.add(new ReservationJoin(reservationID, clientID, name, surname, roomID, dateFrom, dateTo));
+				
+			}
+		}
+		catch (SQLException e) {System.out.println(e.getMessage());}
+		
+		
+		return reservations;
+	}
+	
+	public List<ReservationJoin> searchFreeRoom (ReservationJoin data) {
+		List<ReservationJoin> reservations = new ArrayList<>();
+		
+		if (data==null)
+			return reservations;
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT ro.RoomID, rt.Name FROM Rooms AS ro JOIN RoomTypes AS rt ON ro.RoomTypeID=rt.RoomTypeID WHERE ro.RoomID NOT IN (SELECT re.RoomID FROM Reservations AS re WHERE DateFrom <= ? AND DateTo >= ?);");
+			statement.setString(1, data.getDateTo().toString());
+			statement.setString(2, data.getDateFrom().toString());
+			ResultSet result = statement.executeQuery();
+			
+			while (result.next()) {
+				
+				int roomID = result.getInt(1);
+				String roomType = result.getString(2);
+		
+				reservations.add(new ReservationJoin(roomID, roomType));
+			}
+		}
+		catch (SQLException e) {System.out.println(e.getMessage());}
+		
+		
+		return reservations;
+	}
+	
 	
 	public boolean executeQuery (String query) {
 		

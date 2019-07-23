@@ -2,21 +2,29 @@ package controllers;
 	
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 
-public class Controller {
+public class Controller implements Initializable {
 	
 	private Stage window = new Stage();
 	private Stage searchWindow = new Stage();
 	
-	@FXML private TextArea display = new TextArea();
+	@FXML private TextArea display;
+	
+	@Override
+	public void initialize (URL url, ResourceBundle resource) {
+
+	}
 	
 	@FXML
 	private void openClientWindow () {
@@ -26,7 +34,7 @@ public class Controller {
 			openWindow(scene, "Client");
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -40,7 +48,7 @@ public class Controller {
 			openWindow(scene, "Room");
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -54,7 +62,7 @@ public class Controller {
 			openWindow(scene, "Room type");
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -68,7 +76,7 @@ public class Controller {
 			openWindow(scene, "Reservation");
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -82,7 +90,7 @@ public class Controller {
 			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingClient.fxml"));
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -98,11 +106,11 @@ public class Controller {
 			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingRoomType.fxml"));
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
-		Scene scene = new Scene(root, 800, 270);
+		Scene scene = new Scene(root, 600, 270);
 		openSearchWindow(scene, "Search room type");
 	}
 	
@@ -114,7 +122,7 @@ public class Controller {
 			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingRoom.fxml"));
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -130,7 +138,7 @@ public class Controller {
 			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingReservation.fxml"));
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
@@ -146,11 +154,11 @@ public class Controller {
 			root = FXMLLoader.load(getClass().getResource("/view/guiSearchingFreeRoom.fxml"));
 		}
 		catch (IOException e) {
-			display.setText(display.getText() + "\n\nERROR OPENING NEW WINDOW!");
+			displayMessage("ERROR OPENING NEW WINDOW!");
 			e.printStackTrace();
 		}
 		
-		Scene scene = new Scene(root, 800, 270);
+		Scene scene = new Scene(root, 500, 270);
 		openSearchWindow(scene, "Search free room");
 		
 	}
@@ -171,6 +179,10 @@ public class Controller {
 		searchWindow.setTitle(title);
 		searchWindow.setOnCloseRequest(event -> searchWindow.close());
 		searchWindow.show();
+	}
+	
+	private void displayMessage (String message) {
+		display.setText(message);
 	}
 	
 

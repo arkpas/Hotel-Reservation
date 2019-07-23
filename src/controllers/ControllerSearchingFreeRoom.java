@@ -26,6 +26,7 @@ public class ControllerSearchingFreeRoom implements Initializable {
 	@FXML private TableView<ReservationJoin> tableView;
 	@FXML private TableColumn<ReservationJoin, Integer> roomIDCol;
 	@FXML private TableColumn<ReservationJoin, String> roomTypeCol;
+	@FXML private TableColumn<ReservationJoin, Double> priceCol;
 	
 	@Override
 	public void initialize (URL url, ResourceBundle resource) {
@@ -34,6 +35,7 @@ public class ControllerSearchingFreeRoom implements Initializable {
 		
 		roomIDCol.setCellValueFactory(new PropertyValueFactory<ReservationJoin, Integer>("roomID"));
 		roomTypeCol.setCellValueFactory(new PropertyValueFactory<ReservationJoin, String>("roomType"));
+		priceCol.setCellValueFactory(new PropertyValueFactory<ReservationJoin, Double>("price"));
 
 	}
 	

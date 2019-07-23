@@ -34,6 +34,7 @@
 		<columns>
 			<TableColumn text="Room nr" fx:id="roomIDCol"/>
 			<TableColumn text="Room type" fx:id="roomTypeCol"/>
+			<TableColumn text="Price" fx:id="priceCol"/>
 		</columns>
 	</TableView>
 </HBox>

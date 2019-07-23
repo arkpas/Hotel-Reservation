@@ -198,6 +198,8 @@ public class Hotel {
 			result.next();
 			int pricePerDay = result.getInt(1);
 			int days = Period.between(reservation.getDateFrom(), reservation.getDateTo()).getDays();
+			if (days <= 0)
+				return "Reservation can be made for minimum one day";
 			
 			reservation.setPrice(days*pricePerDay);
 			
@@ -450,22 +452,31 @@ public class Hotel {
 	
 	public List<ReservationJoin> searchFreeRoom (ReservationJoin data) {
 		List<ReservationJoin> reservations = new ArrayList<>();
-		
+
 		if (data==null)
 			return reservations;
 		
+		int days = Period.between(data.getDateFrom(), data.getDateTo()).getDays();
+		
+		if (days <= 0) 
+			return reservations;
+		
 		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT ro.RoomID, rt.Name FROM Rooms AS ro JOIN RoomTypes AS rt ON ro.RoomTypeID=rt.RoomTypeID WHERE ro.RoomID NOT IN (SELECT re.RoomID FROM Reservations AS re WHERE DateFrom <= ? AND DateTo >= ?);");
+			PreparedStatement statement = connection.prepareStatement("SELECT ro.RoomID, rt.Name, rt.PricePerDay FROM Rooms AS ro JOIN RoomTypes AS rt ON ro.RoomTypeID=rt.RoomTypeID WHERE ro.RoomID NOT IN (SELECT re.RoomID FROM Reservations AS re WHERE DateFrom <= ? AND DateTo >= ?);");
 			statement.setString(1, data.getDateTo().toString());
 			statement.setString(2, data.getDateFrom().toString());
 			ResultSet result = statement.executeQuery();
+			
 			
 			while (result.next()) {
 				
 				int roomID = result.getInt(1);
 				String roomType = result.getString(2);
+				double price = result.getDouble(3) * days;
+				
+				
 		
-				reservations.add(new ReservationJoin(roomID, roomType));
+				reservations.add(new ReservationJoin(roomID, roomType, price));
 			}
 		}
 		catch (SQLException e) {System.out.println(e.getMessage());}

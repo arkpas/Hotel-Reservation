@@ -8,31 +8,40 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <BorderPane fx:controller="controllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="700" id="mainBackground" >
 
-
+	<top>
+		<VBox id="image" BorderPane.alignment="CENTER" maxWidth="250" maxHeight="150"/>
+	</top>
+	
+	<center>
+		<VBox alignment="BOTTOM_CENTER">
+			<padding>
+				<Insets left="10" right="10" top="10" bottom="10"/>
+			</padding>
+			<GridPane hgap="5" vgap="5" alignment="BOTTOM_CENTER">
+					<Button id="bigButton" text="Add Client" onAction="#openClientWindow" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+					<Button id="bigButton" text="Add Room" onAction="#openRoomWindow" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+					<Button id="bigButton" text="Add Room Type" onAction="#openRoomTypeWindow" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+					<Button id="bigButton" text="Make Reservation" onAction="#openReservationWindow" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+					
+					<Button id="bigButton" text="Search client" onAction="#openClientSearchWindow" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+					<Button id="bigButton" text="Search room type" onAction="#openRoomTypeSearchWindow" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+					<Button id="bigButton" text="Search room" onAction="#openRoomSearchWindow" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+					<Button id="bigButton" text="Search reservation" onAction="#openReservationSearchWindow" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+					
+					<Button id="bigButton" text="Free rooms" onAction="#openFreeRoomSearchWindow" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+			</GridPane>
+		</VBox>
+	</center>
 	<bottom>
-		<VBox spacing="5">
-			<BorderPane.margin>
-				<Insets left="10" right="10" bottom="10" top="10"/>
-			</BorderPane.margin>
-			<HBox spacing="5">
-				<Button text="Add Client" onAction="#openClientWindow"/>
-				<Button text="Add Room" onAction="#openRoomWindow"/>
-				<Button text="Add Room Type" onAction="#openRoomTypeWindow"/>
-				<Button text="Make Reservation" onAction="#openReservationWindow"/>
-			</HBox>
-			<HBox spacing="5">
-				<Button text="Search client" onAction="#openClientSearchWindow"/>
-				<Button text="Search room type" onAction="#openRoomTypeSearchWindow"/>
-				<Button text="Search room" onAction="#openRoomSearchWindow"/>
-				<Button text="Search reservation" onAction="#openReservationSearchWindow"/>
-			</HBox>
-			<HBox spacing="5">
-				<Button text="Free rooms" onAction="#openFreeRoomSearchWindow"/>
-			</HBox>
-			<TextArea fx:id="display" editable="false" prefHeight="300" prefWidth="300" />
+		<VBox>
+			<TextArea fx:id="display" editable="false" prefHeight="25" prefWidth="300" />
 		</VBox>
 	</bottom>
 	

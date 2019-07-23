@@ -69,20 +69,4 @@ public class ControllerSearchingRoomType implements Initializable {
 	}
 
 	
-	@FXML
-	private void searchRoomTypeAll () {
-		
-		tableView.getItems().clear();
-		
-		List<RoomType> results = new ArrayList<>();
-		if (hotel.connectToDatabase()) {
-			results.addAll(hotel.searchRoomType(null));
-			hotel.disconnectFromDatabase();
-		}
-		
-		tableView.getItems().setAll(results);
-	}
-	
-
-	
 }

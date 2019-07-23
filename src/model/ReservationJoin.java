@@ -12,10 +12,11 @@ public class ReservationJoin {
 		super();
 	}
 	
-	public ReservationJoin (int roomID, String roomType) {
+	public ReservationJoin (int roomID, String roomType, double price) {
 		
 		this.room.setRoomID(roomID);
 		this.room.setRoomType(roomType);
+		this.reservation.setPrice(price);
 	}
 	
 	public ReservationJoin (int reservationID, int clientID, String name, String surname, int roomID, LocalDate dateFrom, LocalDate dateTo) {
@@ -78,5 +79,7 @@ public class ReservationJoin {
 	public LocalDate getDateFrom () { return reservation.getDateFrom(); }
 	
 	public LocalDate getDateTo () { return reservation.getDateTo(); }
+	
+	public double getPrice () { return reservation.getPrice(); }
 
 }

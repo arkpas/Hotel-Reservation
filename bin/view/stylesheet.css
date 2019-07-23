@@ -15,6 +15,32 @@
 	-fx-background-color: rgb(230, 210, 130, 0.8);
 }
 
+#bigButton {
+	-fx-pref-width: 150;
+	-fx-pref-height: 75;
+	-fx-font-size: 16;
+	-fx-font-weight: bold;
+	-fx-background-color: rgb(255,230,185) ;
+	-fx-background-insets: 1;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-width: 0.4;
+	-fx-border-color: darkorange;
+	-fx-wrap-text: true;
+	-fx-text-alignment: center;
+}
+
+#bigButton:hover {
+	-fx-background-color: rgb(255,240,200);
+}
+
+#image {
+	-fx-pref-height: 150;
+	-fx-background-image: url("hotel.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 250;
+	
+	}
 .label {
 	-fx-text-fill: black;
 	-fx-effect: dropshadow(one-pass-box, white, 15, 0.75, 0, 0);

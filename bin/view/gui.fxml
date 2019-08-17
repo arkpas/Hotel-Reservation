@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,9 +13,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
+
 <BorderPane fx:controller="controllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="700" id="mainBackground" >
 
 	<top>
+
 		<VBox id="image" BorderPane.alignment="CENTER" maxWidth="250" maxHeight="150"/>
 	</top>
 	

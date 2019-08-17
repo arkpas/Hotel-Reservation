@@ -4,8 +4,8 @@
 
 Hotel Reservation System (HRS) is a Java project for hotel owners which provides set of basic operations (creating rooms, creating clients profiles, making reservation) to run hotel service.
 
-## Used technologies/frameworks/libraries
-Java 8, JDBC(SQLite), JavaFX
+## Used technologies/frameworks/libraries/languages
+Java 8, JDBC(SQLite), JavaFX, CSS
 
 ## Installation
 
